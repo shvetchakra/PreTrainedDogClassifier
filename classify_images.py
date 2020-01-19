@@ -66,21 +66,17 @@ def classify_images(images_dir, results_dic, model):
      Returns:
            None - results_dic is mutable data type so no return needed.         
     """
-    filename_list = listdir(images_dir)
-    predict_results_dic=dict()
+    
     for key in results_dic.keys():
         filepath=images_dir+key
         classifier_result=classifier(filepath,model)
-        classifier_result=classifier_result.lower()
-        predict_results_dic[key]=classifier_result.strip()
+        classifier_result=classifier_result.lower().strip()
+        results_dic[key].extend([classifier_result, int(results_dic[key][0] in classifier_result)])
     #print("Classifier Result")
     #print(predict_results_dic)
-    for key in predict_results_dic:
+    '''for key in predict_results_dic:
         value=results_dic[key]
         value.insert(1,predict_results_dic[key])
-        if value[0] in value[1]:
-            value.insert(2,1)
-        else:
-            value.insert(2,0)
-    print(results_dic)
-    None 
+        value.insert(2, int(value[0] in value[1]))
+    #print(results_dic)
+    #None''' 

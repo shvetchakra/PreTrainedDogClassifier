@@ -53,8 +53,7 @@ def get_pet_labels(image_dir):
 
 
     for item in filename_list:
-        print(item)
-        if item not in results_dic:
+        if item[0]!= '.' and results_dic.get(item) is None:
              results_dic[item] = get_pet_label_values(item)
         else:
              print("** Warning: Key=", filename_list[item], 
@@ -64,27 +63,29 @@ def get_pet_labels(image_dir):
 
 def get_pet_label_values(filename):
     
-    pet_image = filename
+   # pet_image = filename
 
     
-    pet_image = pet_image.lower()
+    #pet_image = pet_image.lower()
 
     
-    pet_image_list = pet_image.split("_")
+    pet_image_list = filename.lower().split("_")
 
     # Create pet_name starting as empty string
-    pet_name = ""
+    #pet_name = ""
 
-    # Loops to check if word in pet name is only
+    '''# Loops to check if word in pet name is only
     # alphabetic characters - if true append word
     # to pet_name separated by trailing space 
     for word in pet_image_list:
         if word.isalpha():
             pet_name += word + " "
 
+    '''
     # Strip off starting/trailing whitespace characters 
+    pet_name = " ".join([word in pet_image_list if word.isalpha()])
     pet_name = pet_name.strip()
-    pet_name_list=[]
-    pet_name_list.insert(0,pet_name)
-    return pet_name_list
+    #pet_name_list=[]
+    #pet_name_list.insert(0,pet_name)
+    return [pet_name]
     
